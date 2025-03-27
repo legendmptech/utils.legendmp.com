@@ -4,11 +4,140 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Utility URL Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/styles/index.css">
 </head>
 
 <body>
+    <header>
+        <h1>Utility URL Dashboard</h1>
+        <p class="subtitle">Quick access to all your essential tools and services</p>
+    </header>
 
+    <div class="search-container">
+        <i class="fas fa-search search-icon"></i>
+        <input type="text" class="search-input" placeholder="Search utilities...">
+    </div>
+
+    <div class="dashboard" id="dashboard">
+        <!-- Cards will be dynamically inserted here -->
+    </div>
+
+    <script>
+        // Utility data array
+        const utilities = [
+            {
+                title: "QR Code Generator",
+                icon: "fa-qrcode",
+                description: "Create customizable QR codes for any URL with different colors and sizes. Download them with optional URL text.",
+                url: "/utils/generate-qr-code-for-link.html"
+            },
+            {
+                title: "URL Shortener",
+                icon: "fa-link",
+                description: "Shorten long URLs to make them more manageable and track click statistics. Customize your short links.",
+                url: "/utilities/url-shortener"
+            },
+            {
+                title: "Password Generator",
+                icon: "fa-key",
+                description: "Generate secure, random passwords with customizable length and character sets. Never use weak passwords again.",
+                url: "/utilities/password-generator"
+            },
+            {
+                title: "Base64 Converter",
+                icon: "fa-code",
+                description: "Encode and decode text or files to/from Base64 format. Useful for data transmission and basic obfuscation.",
+                url: "/utilities/base64"
+            },
+            {
+                title: "JSON Formatter",
+                icon: "fa-brackets-curly",
+                description: "Beautify and validate JSON data with syntax highlighting. Convert between minified and readable formats.",
+                url: "/utilities/json-formatter"
+            },
+            {
+                title: "Color Picker",
+                icon: "fa-palette",
+                description: "Advanced color picker with HEX, RGB, and HSL values. Create and save color palettes for your projects.",
+                url: "/utilities/color-picker"
+            },
+            {
+                title: "Image Compressor",
+                icon: "fa-file-image",
+                description: "Reduce image file sizes without noticeable quality loss. Supports JPG, PNG, and WebP formats.",
+                url: "/utilities/image-compressor"
+            },
+            {
+                title: "Markdown Editor",
+                icon: "fa-markdown",
+                description: "Live preview Markdown editor with export options. Perfect for documentation and note-taking.",
+                url: "/utilities/markdown-editor"
+            }
+        ];
+
+        // Function to render utility cards
+        function renderUtilityCards() {
+            const dashboard = document.getElementById('dashboard');
+
+            utilities.forEach(utility => {
+                const card = document.createElement('div');
+                card.className = 'utility-card';
+                card.innerHTML = `
+                    <div class="card-header">
+                        <i class="fas ${utility.icon} card-icon"></i>
+                        <h2>${utility.title}</h2>
+                    </div>
+                    <div class="card-body">
+                        <p class="utility-description">${utility.description}</p>
+                        <div class="utility-url">${utility.url}</div>
+                        <a href="${utility.url}" class="btn btn-primary">
+                            <i class="fas fa-external-link-alt"></i> Open Tool
+                        </a>
+                    </div>
+                `;
+                dashboard.appendChild(card);
+            });
+        }
+
+        // Initialize the dashboard
+        document.addEventListener('DOMContentLoaded', () => {
+            renderUtilityCards();
+
+            // Search functionality
+            document.querySelector('.search-input').addEventListener('input', function (e) {
+                const searchTerm = e.target.value.toLowerCase();
+                const cards = document.querySelectorAll('.utility-card');
+
+                cards.forEach(card => {
+                    const title = card.querySelector('h2').textContent.toLowerCase();
+                    const description = card.querySelector('.utility-description').textContent.toLowerCase();
+                    const url = card.querySelector('.utility-url').textContent.toLowerCase();
+
+                    if (title.includes(searchTerm) || description.includes(searchTerm) || url.includes(searchTerm)) {
+                        card.style.display = 'flex';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Optional: Load utilities from an API
+        // async function loadUtilities() {
+        //     try {
+        //         const response = await fetch('/api/utilities');
+        //         const data = await response.json();
+        //         utilities = data;
+        //         renderUtilityCards();
+        //     } catch (error) {
+        //         console.error('Error loading utilities:', error);
+        //     }
+        // }
+    </script>
 </body>
 
 </html>
