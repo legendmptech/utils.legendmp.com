@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Generator</title>
+    <link rel="stylesheet" href="../../globals.css">
+    <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
+    <script src="script.js" defer></script>
+</head>
+
+<body>
+    <header>
+        <h1>QR Code Generator</h1>
+        <p class="subtitle">Create beautiful QR codes for any URL</p>
+    </header>
+
+    <main>
+        <div class="input-group">
+            <label for="url-input">Enter your URL:</label>
+            <input type="url" id="url-input" placeholder="https://example.com" required>
+            <button id="generate-btn">Generate QR Code</button>
+        </div>
+
+        <div class="options-group">
+            <div class="option">
+                <label for="color-select">QR Color:</label>
+                <input type="color" id="color-select" value="#000000">
+            </div>
+            <div class="option">
+                <label for="bg-color-select">Background:</label>
+                <input type="color" id="bg-color-select" value="#ffffff">
+            </div>
+            <div class="option">
+                <label for="size-select">Size:</label>
+                <select id="size-select">
+                    <option value="1">Small</option>
+                    <option value="2" selected>Medium</option>
+                    <option value="3">Large</option>
+                    <option value="4">Extra Large</option>
+                </select>
+            </div>
+        </div>
+
+        <div id="qr-container" class="qr-container">
+            <div class="qr-code-container">
+                <div class="qr-code-wrapper">
+                    <div id="qr-code" class="qr-code"></div>
+                </div>
+                <div id="url-display" class="url-display"></div>
+            </div>
+
+            <div class="include-url-option">
+                <input type="checkbox" id="include-url" checked>
+                <label for="include-url">Include URL below QR code</label>
+            </div>
+
+            <a id="download-btn" class="download-btn" download="qrcode.png">Download QR Code</a>
+        </div>
+    </main>
+</body>
+
+</html>
